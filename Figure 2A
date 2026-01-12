@@ -1,0 +1,44 @@
+#Import Relative Abundance Excel Sheet
+ra2_0S = read_excel("SAGE2.2RA_0.xlsx")
+ra2_0S = as.data.frame(ra2_0S)
+rownames(ra2_0S) = ra2_0S$Sample
+
+#Import Metadata Excel Sheet
+hh = read_excel("Evvy_HH.xlsx")
+hh = as.data.frame(hh)
+
+#Combine Relative Abundance & Metadata in One
+hhra0 = left_join(ra2_0S, hh, by = "Sample")
+
+#Organize Species in rows in decreasing abundance
+ra_decrease0 <- order(colSums(ra2_0),decreasing = TRUE)
+ra2_0sort <- ra2_0[,ra_decrease0]
+ra2_0sort50 <- ra2_0sort[,1:50] 
+
+#Combine all the CST categories into One Cluster
+anno_clustCST = c(CST5_0clust$Sample, CST4_0clust$Sample, CST3_0clust$Sample, CST2_0clust$Sample, CST1_0clust$Sample) 
+anno_clustCST = data.frame(Sample = anno_clustCST)
+CSTclust_0 = left_join(anno_clustCST, ra2_0a, by = "Sample")
+rownames(CSTclust_0) = anno_clustCST$Sample
+CSTclust_0 = CSTclust_0[,2:725]
+CSTclust_0sort = CSTclust_0[,ra_decrease0]
+
+CSTclust_0sortNA <- CSTclust_0sort
+CSTclust_0sortNA[CSTclust_0sortNA == 0] <- NA
+CSTclust_0sortNA50 <- CSTclust_0sortNA[,1:50]
+
+#Annotations for Heatmap
+library(dplyr)
+anno = data.frame(hhra0$Sample, hhra0$ShannonDiv, hhra0$CST, hhra0$VALENCIA_TYPE, hhra0$Cohort.y)
+
+anno_color <- list(Groups = c(ND = "#00BFC4", UTI = "#C77CFF", BV = "#F8766D", "BV&UTI" = "#7CAE00"),
+                   CST = c(I = "#4F81BD", II = "#8064A2", III = "#9BBB59", IV = "#C0504D", V = "#4BACC6"), 
+                    "Valencia Type" = c("I-A" = "#4F81BD", "I-B" = "#95B3D7", II = "#8064A2", "III-A" = "#9BBB59", "III-B" = "#C4D79B",  
+                    "IV-A" = "#632523", "IV-B" = "#963634", "IV-C0" = "#C0504D", "IV-C1" = "#DA9694", "IV-C2" = "#E6B8B7", "IV-C3" = "#F2DCDB", "IV-C4" = "#F2F2F2", V = "#4BACC6"))
+
+#Graphing the Heatmap
+library(pheatmap)
+library(RColorBrewer)
+
+pheatmap(CSTclust_0sortNA50, cluster_rows = FALSE, cluster_cols = FALSE, show_rownames = FALSE, show_colnames = TRUE, angle_col = 90, fontsize_col = 7, 
+main = "Evvy Participants Clustered by CST (SAGE2.2, 0% Threshold)", fontsize = 6, color = brewer.pal(9,"PuRd"), annotation_row = anno, annotation_colors = anno_color)
