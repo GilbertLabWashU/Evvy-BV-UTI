@@ -1,10 +1,10 @@
 #Import Relative Abundance Excel Sheet
-ra2_0S = read_excel("SAGE2.2RA_0.xlsx")
+ra2_0S = read_excel("Evvy2.2-RA0%.xlsx")
 ra2_0S = as.data.frame(ra2_0S)
 rownames(ra2_0S) = ra2_0S$Sample
 
 #Import Metadata Excel Sheet
-hh = read_excel("Evvy_HH.xlsx")
+hh = read_excel("Evvy_Metadata.xlsx")
 hh = as.data.frame(hh)
 
 #Combine Relative Abundance & Metadata in One
