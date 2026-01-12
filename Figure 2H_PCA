@@ -1,0 +1,9 @@
+library(factoextra)
+library(FactoMineR)
+
+pca <- prcomp(ra2_0)
+fviz_eig(pca)
+
+fviz_pca_ind(pca, axes = c(1,2), cex = 0.2, geom = "point", col.ind = anno$Groups, palette = c("ND" = "#00BFC4", "UTI" = "#C77CFF", "BV" = "#F8766D", "BV&UTI" = "#7CAE00"), legend.title = "PCoA", pointshape = 20, addEllipses = TRUE, ellipse.level = 0.95) + labs(title = "PCA") + theme(plot.title = element_text(size = 24))
+
+fviz_pca_var(pca, axes = c(1,2), cex = 0.2) + coord_cartesian(xlim = c(-0.3,0.45), ylim = c(-0.25,0.1))
