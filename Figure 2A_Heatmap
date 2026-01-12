@@ -10,6 +10,53 @@ hh = as.data.frame(hh)
 #Combine Relative Abundance & Metadata in One
 hhra0 = left_join(ra2_0S, hh, by = "Sample")
 
+#Organize Participants in columns by Community State Type (CST)
+
+CST1_0 <- subset(hhra0, CST == 1)
+CST1ra0 <- CST1_0[,3:726]
+CST1_0NA <- CST1ra0
+CST1_0NA[CST1_0NA == 0] <- NA
+rownames(CST1ra0) <- CST1_0$Sample
+rownames(CST1_0NA) <- CST1_0$Sample
+CST1_0NAclust <- CST1_0NA$tree_row$order
+CST1_0clust <- CST1_0[CST1_0NAclust,]
+
+CST2_0 <- subset(hhra0, CST == 2)
+CST2ra0 <- CST2_0[,3:726]
+CST2_0NA <- CST2ra0
+CST2_0NA[CST2_0NA == 0] <- NA
+rownames(CST2ra0) <- CST2_0$Sample
+rownames(CST2_0NA) <- CST2_0$Sample
+CST2_0NAclust <- CST2_0NA$tree_row$order
+CST2_0clust <- CST2_0[CST2_0NAclust,]
+
+CST3_0 <- subset(hhra0, CST == 3)
+CST3ra0 <- CST3_0[,3:726]
+CST3_0NA <- CST3ra0
+CST3_0NA[CST3_0NA == 0] <- NA
+rownames(CST3ra0) <- CST3_0$Sample
+rownames(CST3_0NA) <- CST3_0$Sample
+CST3_0NAclust <- CST3_0NA$tree_row$order
+CST3_0clust <- CST3_0[CST3_0NAclust,]
+
+CST4_0 <- subset(hhra0, CST == 4)
+CST4ra0 <- CST4_0[,3:726]
+CST4_0NA <- CST4ra0
+CST4_0NA[CST4_0NA == 0] <- NA
+rownames(CST4ra0) <- CST4_0$Sample
+rownames(CST4_0NA) <- CST4_0$Sample
+CST4_0NAclust <- CST4_0NA$tree_row$order
+CST4_0clust <- CST4_0[CST4_0NAclust,]
+
+CST5_0 <- subset(hhra0, CST == 5)
+CST5ra0 <- CST5_0[,3:726]
+CST5_0NA <- CST5ra0
+CST5_0NA[CST5_0NA == 0] <- NA
+rownames(CST5ra0) <- CST5_0$Sample
+rownames(CST5_0NA) <- CST5_0$Sample
+CST5_0NAclust <- CST5_0NA$tree_row$order
+CST5_0clust <- CST5_0[CST5_0NAclust,]
+
 #Organize Species in rows in decreasing abundance
 ra_decrease0 <- order(colSums(ra2_0),decreasing = TRUE)
 ra2_0sort <- ra2_0[,ra_decrease0]
