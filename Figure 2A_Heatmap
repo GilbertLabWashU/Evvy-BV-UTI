@@ -30,6 +30,7 @@ CSTclust_0sortNA50 <- CSTclust_0sortNA[,1:50]
 #Annotations for Heatmap
 library(dplyr)
 anno = data.frame(hhra0$Sample, hhra0$ShannonDiv, hhra0$CST, hhra0$VALENCIA_TYPE, hhra0$Cohort.y)
+anno$Cohort <- factor(anno$Cohort, levels = c("ND", "UTI", "BV", "BVUTI"))
 
 anno_color <- list(Groups = c(ND = "#00BFC4", UTI = "#C77CFF", BV = "#F8766D", "BV&UTI" = "#7CAE00"),
                    CST = c(I = "#4F81BD", II = "#8064A2", III = "#9BBB59", IV = "#C0504D", V = "#4BACC6"), 
