@@ -1,0 +1,12 @@
+library(Rtsne)
+set.seed(123) #consistent results/reproducibility, not stochastic
+tsne0 = Rtsne(ra2_0, dims = 2, perplexity = 50, max_iter = 1000, verbose = TRUE)
+tsne_0 = as.data.frame(tsne0$Y)
+colnames(tsne_0) <- c("tSNE1","tSNE2")
+tsne_0$CST <- anno$CST
+
+ggplot(tsne_0, aes(x = tSNE1, y = tSNE2, color = CST)) +
+  geom_point(size = 1) + theme_minimal() +
+  theme(plot.title = element_text(size=24)) +
+  scale_color_manual(values = c("#4F81BD", "#8064A2", "#9BBB59", "#C0504D", "#4BACC6")) +
+  labs(title = "t-SNE by CST", x = "t-SNE 1", y = "t-SNE 2")
