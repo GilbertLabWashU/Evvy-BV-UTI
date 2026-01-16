@@ -7,7 +7,7 @@ library(ggplot2)
 BrayCurtis0 = vegdist(ra2_0, method="bray")
 BrayMatrix0 = as.matrix(BrayCurtis0)
 
-#PCoA
+#Create PCoA 
 BrayPCA.0 = ecodist::pco(BrayCurtis0) #takes ~10-15 min
 Bray0 = data.frame(pcoa1 = BrayPCA.0$vectors[,1],pcoa2=BrayPCA.0$vectors[,2])
 
