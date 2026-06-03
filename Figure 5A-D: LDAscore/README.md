@@ -2,8 +2,8 @@
 
 Helper scripts used to launch LEfSe docker container, run LEfSe, and plot results
 
-[LEfSe repo](https://github.com/SegataLab/lefse)
-[Docker instructions](https://github.com/biobakery/biobakery/wiki/lefse#2-lefse-condadockervm)
+- [LEfSe repo](https://github.com/SegataLab/lefse)
+- [Docker instructions](https://github.com/biobakery/biobakery/wiki/lefse#2-lefse-condadockervm)
 
 
 ## Script descriptions
@@ -19,3 +19,4 @@ Helper scripts used to launch LEfSe docker container, run LEfSe, and plot result
 ## Notes
 - Recommend making all scripts executable first using `chmod +x $SCRIPT`
 - Workflow is set up to use `/data` as the working directory within the container. By default, the local working directory from which `run_lefse_launcher.sh` will be mounted as `/data` by default; this is configurable. 
+- Docker image is `biobakery/lefse`
