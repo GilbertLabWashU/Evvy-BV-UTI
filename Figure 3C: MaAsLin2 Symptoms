@@ -1,1 +1,99 @@
+getwd()
+setwd("/Users/nicolegilbert/Downloads/maslin2")   # adjust path as needed
+
+
+# Start fresh
+rm(list = ls())
+
+# Read feature data
+input_data <- read.csv(
+  "GilbertCohorts_10003_SAGEv2.2_MarkerGene_Abundance_0.1Threshold2.csv",
+  row.names   = 1,
+  check.names = FALSE
+)
+# install.packages("readxl")  # run once if not installed
+library(readxl)
+# Read metadata
+# Read the Excel file (first sheet by default)
+meta_raw <- read_excel("EvvyMaaslin_Symptomupdate.xlsx")
+
+# Set sample IDs as rownames for metadata
+rownames(meta_raw) <- meta_raw$Sample
+input_metadata <- meta_raw[, !(names(meta_raw) %in% "Sample"), drop = FALSE]
+# Dimensions
+dim(input_data)
+dim(input_metadata)
+
+# What do the sample IDs look like?
+head(colnames(input_data))
+head(rownames(input_metadata))
+
+# Show a few more to be sure
+head(colnames(input_data), 20)
+head(rownames(input_metadata), 20)
+common_samples <- intersect(colnames(input_data), rownames(input_metadata))
+length(common_samples)
+head(common_samples, 20)
+
+rm(list = ls())
+
+# Read feature data: samples as rownames, taxa as columns (current layout)
+input_data_raw <- read.csv(
+  "GilbertCohorts_10003_SAGEv2.2_MarkerGene_Abundance_0.1Threshold2.csv",
+  check.names = FALSE
+)
+
+# Confirm what the first column is
+head(input_data_raw[, 1, drop = FALSE])
+colnames(input_data_raw)[1]
+rownames(input_data_raw) <- input_data_raw[[1]]
+input_data_raw <- input_data_raw[, -1, drop = FALSE]
+input_data <- t(input_data_raw)
+
+# Check: now colnames should be sample IDs
+head(colnames(input_data), 10)
+dim(input_data)
+install.packages("readxl")  # only once
+library(readxl)
+
+meta_raw <- read_excel(
+  "EvvyMaaslin_Symptomupdate.xlsx"
+)
+meta_raw <- readxl(
+  "EvvyMaaslin_Symptomupdate.xlsx",
+  check.names = FALSE
+)
+meta_raw <- as.data.frame(meta_raw, check.names = FALSE)
+rownames(meta_raw) <- meta_raw$Sample
+input_metadata <- meta_raw[, !(names(meta_raw) %in% "Sample"), drop = FALSE]
+
+head(rownames(input_metadata), 10)
+dim(input_metadata)
+common_samples <- intersect(colnames(input_data), rownames(input_metadata))
+length(common_samples)
+head(common_samples, 20)
+input_data     <- input_data[, common_samples, drop = FALSE]
+input_metadata <- input_metadata[common_samples, , drop = FALSE]
+
+dim(input_data)
+dim(input_metadata)
+# Check that sample IDs match and are in the same order
+all(colnames(input_data) == rownames(input_metadata))
+# Should return TRUE
+
+library(Maaslin2)
+fit_data <- Maaslin2(
+  input_data     = input_data,
+  input_metadata = input_metadata,
+  output         = "/Users/nicolegilbert/Downloads/maslin2/Maaslin/020525_Evvy_Symptoms",
+  fixed_effects  = c("VAGINA_PAIN","VULVA_PAIN","VULVA_REDNESS","VAGINAL_SWELLING","EXTERNAL_ITCHINESS","INTERNAL_ITCHINESS","DRYNESS","BURNING_SENSATION","PAIN_WITH_SEX","PAIN_WHILE_PEEING","EXCESSIVE_DISCHARGE","ODOROUS_DISCHARGE","VAGINAL_SMELL"),
+  reference      = c("VAGINAL_SMELL,NO"),
+  normalization  = "TSS",
+  transform      = "LOG",
+  min_prevalence = 0.1,
+  min_abundance  = 0.000,
+  analysis_method  = "LM",
+  max_significance = 0.25,
+  standardize      = TRUE
+)
 
