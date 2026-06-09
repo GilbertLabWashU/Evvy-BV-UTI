@@ -96,4 +96,145 @@ fit_data <- Maaslin2(
   max_significance = 0.25,
   standardize      = TRUE
 )
+# Make a heatmap
+library(dplyr)
+library(tidyr)
+library(pheatmap)
+library(tidyverse)
+
+setwd("/Users/nicolegilbert/Downloads/maslin2/Maaslin/020525_Evvy_Symptoms")
+
+# 1. Read results
+all_results <- read_tsv("all_results.tsv")
+
+# 2. Compute signed -log10(q) and cap between -20 and 20
+sig_res <- all_results %>%
+  filter(qval < 0.25) %>%  # same threshold as MaAsLin heatmap
+  mutate(
+    signed_logq = -log10(qval) * sign(coef),
+    signed_logq = pmax(pmin(signed_logq, 20), -20)
+  )
+
+# 3. Collapse duplicates: one value per (feature, metadata)
+#    Use the value with largest absolute signed_logq (most "significant")
+sig_res_unique <- sig_res %>%
+  mutate(meta_level = paste(metadata, value, sep = "."))
+
+
+# 4. Select top 50 features by max |signed_logq|
+top_features <- sig_res_unique %>%
+  group_by(feature) %>%
+  summarise(max_abs = max(abs(signed_logq)), .groups = "drop") %>%
+  arrange(desc(max_abs)) %>%
+  slice(1:50) %>%
+  pull(feature)
+
+# 5. Long → wide: rows = feature, columns = metadata
+top_mat_long <- sig_res_unique %>%
+  filter(feature %in% top_features) %>%
+  select(feature, meta_level, signed_logq)
+
+heat_mat <- top_mat_long %>%
+  pivot_wider(
+    names_from = meta_level,
+    values_from = signed_logq
+  ) %>%
+  column_to_rownames("feature") %>%
+  as.matrix()
+
+library(pheatmap)
+
+# Check current columns:
+colnames(heat_mat)
+
+# Specify desired order (edit this to your liking, matching colnames exactly)
+new_col_order <- c("ODOROUS_DISCHARGE.YES","VAGINAL_SMELL.FI","VAGINAL_SMELL.RO","EXCESSIVE_DISCHARGE.YES","EXTERNAL_ITCHINESS.YES","INTERNAL_ITCHINESS.YES","VULVA_REDNESS.YES","BURNING_SENSATION.YES","PAIN_WHILE_PEEING.YES")
+
+heat_mat_reordered <- heat_mat[, new_col_order, drop = FALSE]
+
+library(pheatmap)
+# Replace NA with 0
+heat_mat_no_na <- heat_mat_reordered
+heat_mat_no_na[is.na(heat_mat_no_na)] <- 0
+library(pheatmap)
+pheatmap(
+  heat_mat_no_na,
+  color  = colorRampPalette(c("blue", "white", "red"))(50),
+  breaks = seq(-20, 20, length.out = 51),
+  cluster_rows = TRUE,
+  cluster_cols = FALSE,
+  scale = "none",
+  border_color = NA,
+  filename = "heatmap_custom_order_simplified_051325.pdf",
+  width = 8, height = 10
+)
+getwd()
+
+file.exists("heatmap_custom_order.pdf")
+
+getwd()
+list.files()
+library(pheatmap)
+
+pdf("heatmap_custom_order.pdf", width = 8, height = 10)
+
+pheatmap(
+  heat_mat_no_na,                         # or heat_mat_reordered if no NAs
+  color  = colorRampPalette(c("blue", "white", "red"))(50),
+  breaks = seq(-20, 20, length.out = 51),
+  cluster_rows = TRUE,                   # or FALSE if you turned clustering off
+  cluster_cols = FALSE,
+  scale = "none",
+  border_color = NA
+)
+
+dev.off()
+file.exists("heatmap_custom_order.pdf")
+list.files(pattern = "heatmap_custom_order")
+
+library(pheatmap)
+
+pheatmap(
+  heat_mat_no_na,   # or heat_mat_reordered if you turned off clustering
+  color  = colorRampPalette(c("blue", "white", "red"))(50),
+  breaks = seq(-20, 20, length.out = 51),
+  cluster_rows = TRUE,    # or FALSE if you prefer
+  cluster_cols = FALSE,
+  scale = "none",
+  border_color = NA
+)
+
+library(pheatmap)
+
+# 1. Make sure heat_mat_no_na exists and has no NA/Inf
+#    (if you only have heat_mat_reordered, create heat_mat_no_na from it)
+heat_mat_no_na <- heat_mat_reordered
+heat_mat_no_na[is.na(heat_mat_no_na)] <- 0
+heat_mat_no_na[is.infinite(heat_mat_no_na)] <- 0
+
+summary(as.vector(heat_mat_no_na))
+sum(is.na(heat_mat_no_na))
+sum(is.infinite(heat_mat_no_na))
+# both sums should be 0
+
+# 2. Confirm where the file will be written
+getwd()
+
+# 3. Open PDF device
+pdf("heatmap_custom_order.pdf", width = 8, height = 10)
+
+# 4. Draw the heatmap (no clustering issues because NAs/Inf are gone)
+pheatmap(
+  heat_mat_no_na,
+  color  = colorRampPalette(c("blue", "white", "red"))(50),
+  breaks = seq(-20, 20, length.out = 51),
+  cluster_rows = TRUE,      # set FALSE if you don't want clustering
+  cluster_cols = FALSE,
+  scale = "none",
+  border_color = NA
+)
+
+# 5. Close the device
+dev.off()
+file.info("heatmap_custom_order.pdf")$size
 
