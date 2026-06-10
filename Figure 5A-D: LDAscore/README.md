@@ -9,7 +9,7 @@ Helper scripts used to launch LEfSe docker container, run LEfSe, and plot result
 ## Script descriptions
 - `run_lefse_launcher.sh`: main driver script used to launch docker container & run workflow within the image
   - Command example: `./run_lefse_launcher.sh --input-list all-files.txt --lda-values 2.0,2.5,3.0 --output-root publication-data-and-figures`
-    - `all-files.txt` should specify one input file path per line. Recommend relative paths, either in the current directory or a subdirectory. Input files are transposed from "Evvy_SampleAbundance_1.xlsx" & "Evvy_SampleAbundance_2.xlsx"
+    - `all-files.txt` should specify one input file path per line. Recommend relative paths, either in the current directory or a subdirectory. Input files are transposed from a combined "Evvy_SampleAbundance_1.xlsx" & "Evvy_SampleAbundance_2.xlsx". Metadata of cohort designation is extrapolated from "Evvy_SampleMetadata.xlsx"
 - `run_lefse_script.sh`: workflow script that runs within the container.
 - `patched_plot_res.py`: patched version of the built-in plotting script; sets custom color scheme and tweaks default font sizes. Running this script directly is not recommended; use the wrapper instead.
 - `patched_plot_res_wrapper.sh`: wrapper that follows the convention of other provided wrapper scripts within the container to set env vars and run the patched plotting script above.
