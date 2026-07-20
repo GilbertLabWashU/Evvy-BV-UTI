@@ -1,0 +1,228 @@
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/AllData.xlsx"
+    out=treat_data
+    dbms=xlsx
+    replace;
+    sheet=THYE;
+    getnames=yes;
+run;
+data utiye_vs_nd;
+    set treat_data;
+    where UTI in ("UTI(YE)", "Never diagnosed");
+    if UTI = "UTI(YE)" then Group = 1;
+    else if UTI = "Never diagnosed" then Group = 0;
+run;
+proc logistic data=utiye_vs_nd descending;
+    class CST_I (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_I AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utiye_vs_nd descending;
+    class CST_II (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_II AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utiye_vs_nd descending;
+    class CST_III (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_III AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utiye_vs_nd descending;
+    class CST_IV (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_IV AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utiye_vs_nd descending;
+    class CST_V (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_V AGE BMI RACE MENOPAUSE;
+run;
+
+data utith_vs_nd;
+    set treat_data;
+    where UTI in ("UTI(TH)", "Never diagnosed");
+    if UTI = "UTI(TH)" then Group = 1;
+    else if UTI = "Never diagnosed" then Group = 0;
+run;
+proc logistic data=utith_vs_nd descending;
+    class CST_I (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_I AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utith_vs_nd descending;
+    class CST_II (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_II AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utith_vs_nd descending;
+    class CST_III (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_III AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utith_vs_nd descending;
+    class CST_IV (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_IV AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=utith_vs_nd descending;
+    class CST_V (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_V AGE BMI RACE MENOPAUSE;
+run;
+
+data bvye_vs_nd;
+    set treat_data;
+    where BV in ("BV(YE)", "Never diagnosed");
+    if BV = "BV(YE)" then Group = 1;
+    else if BV = "Never diagnosed" then Group = 0;
+run;
+proc logistic data=bvye_vs_nd descending;
+    class CST_I (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_I AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvye_vs_nd descending;
+    class CST_II (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_II AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvye_vs_nd descending;
+    class CST_III (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_III AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvye_vs_nd descending;
+    class CST_IV (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_IV AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvye_vs_nd descending;
+    class CST_V (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_V AGE BMI RACE MENOPAUSE;
+run;
+
+data bvth_vs_nd;
+    set treat_data;
+    where BV in ("BV(TH)", "Never diagnosed");
+    if BV = "BV(TH)" then Group = 1;
+    else if BV = "Never diagnosed" then Group = 0;
+run;
+proc logistic data=bvth_vs_nd descending;
+    class CST_I (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_I AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvth_vs_nd descending;
+    class CST_II (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_II AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvth_vs_nd descending;
+    class CST_III (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_III AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvth_vs_nd descending;
+    class CST_IV (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_IV AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvth_vs_nd descending;
+    class CST_V (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_V AGE BMI RACE MENOPAUSE;
+run;
+
+data bvutiye_vs_nd;
+    set treat_data;
+    where BVUTI in ("BV&UTI(YE,YE)", "Never diagnosed");
+    if BVUTI = "BV&UTI(YE,YE)" then Group = 1;
+    else if BVUTI = "Never diagnosed" then Group = 0;
+run;
+proc logistic data=bvutiye_vs_nd descending;
+    class CST_I (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_I AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutiye_vs_nd descending;
+    class CST_II (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_II AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutiye_vs_nd descending;
+    class CST_III (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_III AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutiye_vs_nd descending;
+    class CST_IV (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_IV AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutiye_vs_nd descending;
+    class CST_V (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_V AGE BMI RACE MENOPAUSE;
+run;
+
+data bvutith_vs_nd;
+    set treat_data;
+    where BVUTI in ("BV&UTI(TH,TH)", "Never diagnosed");
+    if BVUTI = "BV&UTI(TH,TH)" then Group = 1;
+    else if BVUTI = "Never diagnosed" then Group = 0;
+run;
+proc logistic data=bvutith_vs_nd descending;
+    class CST_I (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_I AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutith_vs_nd descending;
+    class CST_II (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_II AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutith_vs_nd descending;
+    class CST_III (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_III AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutith_vs_nd descending;
+    class CST_IV (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_IV AGE BMI RACE MENOPAUSE;
+run;
+proc logistic data=bvutith_vs_nd descending;
+    class CST_V (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = CST_V AGE BMI RACE MENOPAUSE;
+run;
