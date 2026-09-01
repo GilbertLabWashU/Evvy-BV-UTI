@@ -1,3 +1,23 @@
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/2025-11-07 Template_QOL.xlsx"
+    out=treat_data
+    dbms=xlsx
+    replace;
+    sheet=Data;
+    getnames=yes;
+run;
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Table_9.12.xlsx"
+    out=treat_data
+    dbms=xlsx
+    replace;
+    sheet=Data;
+    getnames=yes;
+run;
+proc glm data=treat_data;
+    class Cohort AGE BMI RACE MENOPAUSE;
+    model "CST"n = Cohort AGE BMI RACE MENOPAUSE/solution;
+    lsmeans Cohort / pdiff=all adjust=bon cl;
+    title "Bonferroni Comparison for Total Uropathogens abundance";
+run;
 
 data bv_vs_nd;
     set treat_data;
