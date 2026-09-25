@@ -15,3 +15,6 @@ Bray0 = data.frame(pcoa1 = BrayPCA.0$vectors[,1],pcoa2=BrayPCA.0$vectors[,2])
 ggplot(data = Bray0, aes(x=pcoa1, y=pcoa2, color = anno$Group)) + 
   geom_point() + 
   labs(x = "PC1", y = "PC2", title = "Bray-Curtis", color = "Groups") + theme(title = element_text(size=16), axis.text = element_text(size = 11), axis.title = element_text(size = 16), plot.title = element_text(size=24), legend.text = element_text(size = 12)) + stat_ellipse() + scale_color_manual(values = c("#00BFC4","#C77CFF","#F8766D","#7CAE00"))
+
+#PERMANOVA Analysis
+permanova = adonis2(BrayCurtis0 ~ Cohort, data = cohort, permutations = 999)
