@@ -480,3 +480,9 @@ proc logistic data=bvuti_vs_uti descending;
           MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
     model Group = L AGE BMI RACE MENOPAUSE;
 run;
+proc logistic data=bvuti_vs_uti descending;
+    class M (ref='NO') 
+          RACE (ref="WHITE")
+          MENOPAUSE (ref="NO-MENOPAUSE")/ param=ref;
+    model Group = M AGE BMI RACE MENOPAUSE;
+run;
