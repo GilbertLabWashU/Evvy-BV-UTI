@@ -1,16 +1,16 @@
 #Import Relative Abundance Excel Sheet
-ra2_0S = read_excel("Evvy2.2-RA0%.xlsx")
+ra2_0S = read_excel("SampleAbundance.xlsx")
 ra2_0S = as.data.frame(ra2_0S)
 rownames(ra2_0S) = ra2_0S$Sample
 
 #Import Metadata Excel Sheet
-hh = read_excel("Evvy_Metadata.xlsx")
+hh = read_excel("Metadata_Evvy.xlsx")
 hh = as.data.frame(hh)
 
 #Combine Relative Abundance & Metadata into One Table
 hhra0 = left_join(ra2_0S, hh, by = "Sample")
 
-#Organize Species in rows by decreasing abundance
+#Organize Species in Rows by Decreasing Abundance
 ra_decrease0 <- order(colSums(ra2_0),decreasing = TRUE)
 ra2_0sort <- ra2_0[,ra_decrease0]
 ra2_0sort50 <- ra2_0sort[,1:50] 
@@ -27,7 +27,7 @@ CSTclust_0sortNA <- CSTclust_0sort
 CSTclust_0sortNA[CSTclust_0sortNA == 0] <- NA
 CSTclust_0sortNA50 <- CSTclust_0sortNA[,1:50]
 
-#Annotations on Heatmap
+#Heatmap Annotations
 library(dplyr)
 anno = data.frame(hhra0$Sample, hhra0$ShannonDiv, hhra0$CST, hhra0$VALENCIA_TYPE, hhra0$Cohort.y)
 
