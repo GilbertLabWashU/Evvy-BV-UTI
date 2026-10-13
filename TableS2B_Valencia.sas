@@ -1,4 +1,4 @@
-proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Table_9.12.xlsx"
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Metadata_Evvy.xlsx"
     out=Data
     dbms=xlsx
     replace;
