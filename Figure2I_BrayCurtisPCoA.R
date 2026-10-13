@@ -1,3 +1,16 @@
+#Import Relative Abundance Excel Sheet
+ra2_0S = read_excel("SampleAbundance.xlsx")
+ra2_0S = as.data.frame(ra2_0S)
+rownames(ra2_0S) = ra2_0S$Sample
+
+#Import Metadata Excel Sheet
+hh = read_excel("Metadata_Evvy.xlsx")
+hh = as.data.frame(hh)
+
+#Combine Relative Abundance & Metadata into One Table
+hhra0 = left_join(ra2_0S, hh, by = "Sample")
+
+#BrayCurtis Diversity
 library(vegan)
 library(FD)
 library(ade4)
@@ -7,7 +20,7 @@ library(ggplot2)
 BrayCurtis0 = vegdist(ra2_0, method="bray")
 BrayMatrix0 = as.matrix(BrayCurtis0)
 
-#Create PCoA 
+#BrayCurtis PCoA 
 BrayPCA.0 = ecodist::pco(BrayCurtis0) #takes ~10-15 min
 Bray0 = data.frame(pcoa1 = BrayPCA.0$vectors[,1],pcoa2=BrayPCA.0$vectors[,2])
 
