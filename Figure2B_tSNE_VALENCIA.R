@@ -10,11 +10,10 @@ hh = as.data.frame(hh)
 #Combine Relative Abundance & Metadata into One Table
 hhra0 = left_join(ra2_0S, hh, by = "Sample")
 
-#Load Packages
+#tSNE Values
 library(Rtsne)
 set.seed(123) #consistent results/reproducibility, not stochastic
 
-#tSNE values
 tsne0 = Rtsne(ra2_0, dims = 2, perplexity = 50, max_iter = 1000, verbose = TRUE)
 tsne_0 = as.data.frame(tsne0$Y)
 colnames(tsne_0) <- c("tSNE1","tSNE2")
