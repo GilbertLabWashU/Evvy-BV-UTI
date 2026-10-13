@@ -1,3 +1,16 @@
+#Import Relative Abundance Excel Sheet
+ra2_0S = read_excel("SampleAbundance.xlsx")
+ra2_0S = as.data.frame(ra2_0S)
+rownames(ra2_0S) = ra2_0S$Sample
+
+#Import Metadata Excel Sheet
+hh = read_excel("Metadata_Evvy.xlsx")
+hh = as.data.frame(hh)
+
+#Combine Relative Abundance & Metadata into One Table
+hhra0 = left_join(ra2_0S, hh, by = "Sample")
+
+#Aitchison CLR Values
 library(compositions)
 ra0_pseudo = ra2_0 + 1
 ra2_0clr = clr(ra0_pseudo)
@@ -6,6 +19,7 @@ pca_clr = prcomp(ra2_0clr, center=TRUE, scale. = FALSE)
 clr = as.data.frame(pca_clr$x)
 clr$groups = anno$Groups
 
+#Aitchison PCA
 ggplot(clr, aes(PC1, PC2, color = groups, fill = groups)) +
   geom_point(size = 1) +
   stat_ellipse(geom = "polygon", alpha = 0.05) +
