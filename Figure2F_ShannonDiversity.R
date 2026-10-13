@@ -10,7 +10,7 @@ hh = as.data.frame(hh)
 #Combine Relative Abundance & Metadata into One Table
 hhra0 = left_join(ra2_0S, hh, by = "Sample")
 
-#Shannon Diversity Values
+#Shannon Diversity
 library(vegan)
 ra2_0S$ShannonD = vegan::diversity(ra2_0, index = "shannon")
 
