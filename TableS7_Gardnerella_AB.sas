@@ -1,7 +1,7 @@
 
 
 proc import
-    datafile="/home/u63947748/A_InternLab_XinyueWang/METAdata_062425.xlsx"
+    datafile="/home/u63947748/A_InternLab_XinyueWang/Metadata_Evvy.xlsx"
     out=s7_data
     dbms=xlsx
     replace;
