@@ -1,4 +1,4 @@
-proc import datafile="/home/u63947748/A_InternLab_XinyueWang/SAS_Gardnerella_Seperate.xlsx"
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Gardnerella_Species.xlsx"
     out=gardnerella_data
     dbms=xlsx
     replace;
