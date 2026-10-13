@@ -1,4 +1,4 @@
-proc import datafile="/home/u63947748/A_InternLab_XinyueWang/SAS_Uropathogen_Seperate.xlsx"
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Uropathogen_Species.xlsx"
     out=Uropathogen_data
     dbms=xlsx
     replace;
