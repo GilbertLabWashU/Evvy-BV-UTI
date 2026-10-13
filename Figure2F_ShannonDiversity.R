@@ -1,6 +1,20 @@
+#Import Relative Abundance Excel Sheet
+ra2_0S = read_excel("SampleAbundance.xlsx")
+ra2_0S = as.data.frame(ra2_0S)
+rownames(ra2_0S) = ra2_0S$Sample
+
+#Import Metadata Excel Sheet
+hh = read_excel("Metadata_Evvy.xlsx")
+hh = as.data.frame(hh)
+
+#Combine Relative Abundance & Metadata into One Table
+hhra0 = left_join(ra2_0S, hh, by = "Sample")
+
+#Shannon Diversity Values
 library(vegan)
 ra2_0S$ShannonD = vegan::diversity(ra2_0, index = "shannon")
 
+#Shannon Plot
 library(ggplot2)
 library(ggbeeswarm)
 library(ggpubr)
