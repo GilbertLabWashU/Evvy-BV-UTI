@@ -8,7 +8,7 @@
 
 
 
-proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Evvy_METAdata_forMonica_042825.xlsx"
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Metadata_Evvy.xlsx"
     out=figure4a_data
     dbms=xlsx
     replace;
