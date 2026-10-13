@@ -1,5 +1,5 @@
 #Import Relative Abundance Excel Sheet
-ra2_0S = read_excel("SampleAbundance.xlsx")
+ra2_0S = read_excel("SampleAbundance.xlsx") #Combined "SampleAbundance1.xlsx" & "SampleAbundance2.xlsx" into one table "SampleAbundance.xlsx"
 ra2_0S = as.data.frame(ra2_0S)
 rownames(ra2_0S) = ra2_0S$Sample
 
