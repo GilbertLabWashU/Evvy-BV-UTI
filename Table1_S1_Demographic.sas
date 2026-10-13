@@ -1,4 +1,4 @@
-proc import datafile="/home/u63947748/A_InternLab_XinyueWang/DemographicsCharacteristicsSAS.xlsx"
+proc import datafile="/home/u63947748/A_InternLab_XinyueWang/Demographics.xlsx"
     out=demo_data
     dbms=xlsx
     replace;
